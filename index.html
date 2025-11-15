@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Wonderland</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(#0a0f2a, #132043);
+      font-family: 'Poppins', sans-serif;
+      transition: background 1s ease;
+    }
+
+    /* Day/Night Toggle */
+    .toggle-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    .toggle {
+      width: 60px;
+      height: 30px;
+      background: #fff;
+      border-radius: 30px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 0 10px #fff;
+    }
+    .toggle::after {
+      content: '';
+      width: 26px;
+      height: 26px;
+      background: #ffd700;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: 0.4s;
+    }
+    .night .toggle::after {
+      left: 32px;
+      background: #f0f0f0;
+    }
+
+    /* Snowflakes */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: white;
+      font-size: 1em;
+      animation: fall linear infinite;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 6px white);
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    /* Romantic Typing Message */
+    .message-box {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      padding: 15px 25px;
+      border-radius: 20px;
+      color: #fff;
+      font-size: 20px;
+      backdrop-filter: blur(10px);
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 0 20px #fff;
+    }
+
+    /* Christmas Trees */
+    .tree {
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      border-bottom: 80px solid #0f3d0f;
+      filter: drop-shadow(0 0 6px green);
+      animation: sway 3s ease-in-out infinite;
+    }
+    @keyframes sway {
+      0%,100% { transform: rotate(0deg); }
+      50% { transform: rotate(2deg); }
+    }
+
+    /* Penguins */
+    .penguin {
+      position: absolute;
+      width: 50px;
+      bottom: 10px;
+      animation: waddle 6s infinite linear;
+    }
+    @keyframes waddle {
+      0% { left: -100px; }
+      50% { transform: scaleX(-1); }
+      100% { left: 110%; }
+    }
+
+    /* Santa Flying */
+    .santa {
+      position: absolute;
+      top: 20%;
+      left: -200px;
+      width: 140px;
+      animation: fly 12s linear infinite;
+      filter: drop-shadow(0 0 10px white);
+    }
+    @keyframes fly {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(150vw); }
+    }
+
+    /* Flying Hearts */
+    .heart {
+      position: absolute;
+      color: pink;
+      font-size: 20px;
+      animation: heartMove 4s linear infinite;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 5px pink);
+    }
+    @keyframes heartMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-120vh); }
+    }
+
+    /* Music Button */
+    #musicBtn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.6);
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 10px #fff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Day/Night Toggle -->
+  <div class="toggle-container">
+    <div class="toggle" id="toggle"></div>
+  </div>
+
+  <!-- Santa Flying -->
+  <img src="https://i.imgur.com/0MZtQ90.png" class="santa" />
+
+  <!-- Penguins -->
+  <img src="https://i.imgur.com/4L8xJ6Z.png" class="penguin" style="animation-delay:0s" />
+  <img src="https://i.imgur.com/4L8xJ6Z.png" class="penguin" style="animation-delay:3s" />
+
+  <!-- Christmas Trees -->
+  <div class="tree" style="left:10%"></div>
+  <div class="tree" style="left:50%"></div>
+  <div class="tree" style="left:80%"></div>
+
+  <!-- Romantic Message -->
+  <div class="message-box" id="msg"></div>
+
+  <!-- Music Button -->
+  <div id="musicBtn">🎵 Music</div>
+  <audio id="bgMusic" loop src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Kai_Engel/Fluctuations/Kai_Engel_-_04_-_Moonlight_Reprise.mp3"></audio>
+
+  <script>
+    /* Typing Message */
+    const text = "Wishing you warmth, magic, and love in this winter wonderland ❄️💙";
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        document.getElementById('msg').innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, 60);
+      }
+    }
+    type();
+
+    /* Snowfall */
+    function createSnow() {
+      const snow = document.createElement('div');
+      snow.classList.add('snowflake');
+      snow.innerHTML = '❄';
+      snow.style.left = Math.random() * 100 + 'vw';
+      snow.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      snow.style.fontSize = Math.random() * 10 + 10 + 'px';
+      document.body.appendChild(snow);
+      setTimeout(() => snow.remove(), 6000);
+    }
+    setInterval(createSnow, 120);
+
+    /* Hearts */
+    function createHearts() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.bottom = '0';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+    setInterval(createHearts, 800);
+
+    /* Toggle Day/Night */
+    const toggle = document.getElementById('toggle');
+    toggle.onclick = () => {
+      document.body.classList.toggle('night');
+      if (document.body.classList.contains('night')) {
+        document.body.style.background = 'linear-gradient(#000014, #001133)';
+      } else {
+        document.body.style.background = 'linear-gradient(#88d3ff, #c0eaff)';
+      }
+    };
+
+    /* Music */
+    document.getElementById('musicBtn').onclick = () => {
+      const music = document.getElementById('bgMusic');
+      if (music.paused) music.play(); else music.pause();
+    };
+  </script>
+</body>
+</html>
