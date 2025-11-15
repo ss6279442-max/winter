@@ -1,238 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Winter Wonderland</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: linear-gradient(#0a0f2a, #132043);
-      font-family: 'Poppins', sans-serif;
-      transition: background 1s ease;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Winter Night Aurora ❄️🌌</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-    /* Day/Night Toggle */
-    .toggle-container {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-    .toggle {
-      width: 60px;
-      height: 30px;
-      background: #fff;
-      border-radius: 30px;
-      position: relative;
-      cursor: pointer;
-      box-shadow: 0 0 10px #fff;
-    }
-    .toggle::after {
-      content: '';
-      width: 26px;
-      height: 26px;
-      background: #ffd700;
-      border-radius: 50%;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      transition: 0.4s;
-    }
-    .night .toggle::after {
-      left: 32px;
-      background: #f0f0f0;
-    }
+  :root{
+    --bg1:#02040a;
+    --bg2:#041022;
+    --bg3:#062b47;
+    --bg4:#0b5e73;
+    --glass: rgba(255,255,255,0.06);
+  }
 
-    /* Snowflakes */
-    .snowflake {
-      position: fixed;
-      top: -10px;
-      color: white;
-      font-size: 1em;
-      animation: fall linear infinite;
-      opacity: 0.9;
-      filter: drop-shadow(0 0 6px white);
-    }
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-      }
-    }
+  html,body{height:100%;}
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 40%, var(--bg3) 70%, var(--bg4) 100%);
+    color: #eaf6ff;
+  }
 
-    /* Romantic Typing Message */
-    .message-box {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      padding: 15px 25px;
-      border-radius: 20px;
-      color: #fff;
-      font-size: 20px;
-      backdrop-filter: blur(10px);
-      width: 80%;
-      max-width: 600px;
-      text-align: center;
-      box-shadow: 0 0 20px #fff;
-    }
+  /* Aurora Glow */
+  .aurora {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 120%;
+    pointer-events: none;
+    background: radial-gradient(circle at 15% 25%, rgba(120,255,200,0.18), transparent 40%),
+                radial-gradient(circle at 80% 10%, rgba(80,160,255,0.14), transparent 45%),
+                radial-gradient(circle at 50% 80%, rgba(255,120,200,0.12), transparent 50%);
+    animation: auroraGlow 10s infinite alternate ease-in-out;
+    filter: blur(60px);
+    transform-origin: center;
+    z-index: 2;
+  }
 
-    /* Christmas Trees */
-    .tree {
-      position: absolute;
-      bottom: 0;
-      width: 0;
-      height: 0;
-      border-left: 40px solid transparent;
-      border-right: 40px solid transparent;
-      border-bottom: 80px solid #0f3d0f;
-      filter: drop-shadow(0 0 6px green);
-      animation: sway 3s ease-in-out infinite;
-    }
-    @keyframes sway {
-      0%,100% { transform: rotate(0deg); }
-      50% { transform: rotate(2deg); }
-    }
+  @keyframes auroraGlow {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-80px) rotate(2deg); }
+  }
 
-    /* Penguins */
-    .penguin {
-      position: absolute;
-      width: 50px;
-      bottom: 10px;
-      animation: waddle 6s infinite linear;
-    }
-    @keyframes waddle {
-      0% { left: -100px; }
-      50% { transform: scaleX(-1); }
-      100% { left: 110%; }
-    }
+  /* Greeting panel */
+  .greeting {
+    position: fixed;
+    top: 8vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+    backdrop-filter: blur(6px) saturate(120%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    padding: 18px 28px;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
 
-    /* Santa Flying */
-    .santa {
-      position: absolute;
-      top: 20%;
-      left: -200px;
-      width: 140px;
-      animation: fly 12s linear infinite;
-      filter: drop-shadow(0 0 10px white);
-    }
-    @keyframes fly {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(150vw); }
-    }
+  .greeting h1{
+    margin: 0 0 6px 0;
+    font-size: 28px;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+  }
+  .greeting p{
+    margin:0;
+    opacity: 0.9;
+    font-size: 14px;
+  }
 
-    /* Flying Hearts */
-    .heart {
-      position: absolute;
-      color: pink;
-      font-size: 20px;
-      animation: heartMove 4s linear infinite;
-      opacity: 0.8;
-      filter: drop-shadow(0 0 5px pink);
-    }
-    @keyframes heartMove {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-120vh); }
-    }
+  /* Snowman */
+  .snowman {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    text-align: center;
+  }
 
-    /* Music Button */
-    #musicBtn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background: rgba(255,255,255,0.6);
-      padding: 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 0 10px #fff;
-    }
+  .snowman .ball1, .snowman .ball2, .snowman .ball3 {
+    background: linear-gradient(180deg,#ffffff,#f0f6ff);
+    border-radius: 50%;
+    margin: 0 auto;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45), inset 0 -6px 12px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .ball1 { width: 160px; height: 160px; }
+  .ball2 { width: 110px; height: 110px; margin-top:-20px; }
+  .ball3 { width: 70px; height: 70px; margin-top:-18px; position: relative; }
 
-  </style>
+  /* Snowman face */
+  .eye {
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 18px;
+  }
+  .eye.left { left: 16px; }
+  .eye.right { right: 16px; }
+
+  .nose {
+    width: 0;
+    height: 0;
+    border-left: 12px solid orange;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Snowflake / Heart */
+  .flake {
+    position: fixed;
+    top: -10px;
+    color: white;
+    font-size: 18px;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear infinite;
+    z-index: 15;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0.35; }
+  }
+
+  /* small helper button */
+  .controls{
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 30;
+  }
+  .btn{
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #eaf6ff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+  }
+  .btn:active{ transform: translateY(1px); }
+
+  @media (max-width:520px){
+    .greeting h1{ font-size:22px }
+    .greeting p{ font-size:13px }
+  }
+</style>
 </head>
 <body>
 
-  <!-- Day/Night Toggle -->
-  <div class="toggle-container">
-    <div class="toggle" id="toggle"></div>
+<div class="aurora"></div>
+
+<div class="greeting" id="greeting">
+  <h1 id="greetTitle">A Cozy Winter Night</h1>
+  <p id="greetSub">Wishing you warmth, wonder, and snowflake kisses. Double-tap (or double-click) to turn flakes into hearts ❤️</p>
+</div>
+
+<div class="snowman" aria-hidden="true">
+  <div class="ball1"></div>
+  <div class="ball2"></div>
+  <div class="ball3">
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+    <div class="nose"></div>
   </div>
+</div>
 
-  <!-- Santa Flying -->
-  <img src="https://i.imgur.com/0MZtQ90.png" class="santa" />
+<div class="controls">
+  <button class="btn" id="toggleBtn">Toggle Hearts</button>
+</div>
 
-  <!-- Penguins -->
-  <img src="https://i.imgur.com/4L8xJ6Z.png" class="penguin" style="animation-delay:0s" />
-  <img src="https://i.imgur.com/4L8xJ6Z.png" class="penguin" style="animation-delay:3s" />
+<script>
+// heartsMode toggles between snowflakes and hearts
+let heartsMode = false;
 
-  <!-- Christmas Trees -->
-  <div class="tree" style="left:10%"></div>
-  <div class="tree" style="left:50%"></div>
-  <div class="tree" style="left:80%"></div>
+// create a flake or heart element
+function createFlake(){
+  const el = document.createElement('div');
+  el.className = 'flake';
+  // choose symbol
+  const symbol = heartsMode ? '❤' : '❄';
+  // small chance of a sparkling snowflake
+  el.textContent = symbol;
 
-  <!-- Romantic Message -->
-  <div class="message-box" id="msg"></div>
+  // random starting position and size
+  const size = 10 + Math.random() * 22;
+  el.style.fontSize = size + 'px';
+  el.style.left = Math.random() * (window.innerWidth - 30) + 'px';
+  el.style.animationDuration = 6 + Math.random() * 6 + 's';
 
-  <!-- Music Button -->
-  <div id="musicBtn">🎵 Music</div>
-  <audio id="bgMusic" loop src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Kai_Engel/Fluctuations/Kai_Engel_-_04_-_Moonlight_Reprise.mp3"></audio>
+  // slight horizontal oscillation via CSS variable
+  const sway = (Math.random() * 120) - 60; // px
+  el.style.setProperty('--sway', sway + 'px');
 
-  <script>
-    /* Typing Message */
-    const text = "Wishing you warmth, magic, and love in this winter wonderland ❄️💙";
-    let i = 0;
-    function type() {
-      if (i < text.length) {
-        document.getElementById('msg').innerHTML += text.charAt(i);
-        i++;
-        setTimeout(type, 60);
-      }
+  // random horizontal movement using transform on animation via JS
+  el.style.transform = `translateX(0)`;
+
+  document.body.appendChild(el);
+
+  // gentle horizontal sway using requestAnimationFrame
+  let start = null;
+  const amplitude = 20 + Math.random() * 40;
+  const freq = 0.002 + Math.random() * 0.004;
+  function swayFrame(ts){
+    if(!start) start = ts;
+    const t = ts - start;
+    el.style.left = (parseFloat(el.style.left) + Math.sin(t*freq) * 0.3) + 'px';
+    // stop when element is off bottom
+    if(el.getBoundingClientRect().top > window.innerHeight + 50){
+      el.remove();
+      return;
     }
-    type();
+    requestAnimationFrame(swayFrame);
+  }
+  requestAnimationFrame(swayFrame);
 
-    /* Snowfall */
-    function createSnow() {
-      const snow = document.createElement('div');
-      snow.classList.add('snowflake');
-      snow.innerHTML = '❄';
-      snow.style.left = Math.random() * 100 + 'vw';
-      snow.style.animationDuration = (Math.random() * 3 + 3) + 's';
-      snow.style.fontSize = Math.random() * 10 + 10 + 'px';
-      document.body.appendChild(snow);
-      setTimeout(() => snow.remove(), 6000);
-    }
-    setInterval(createSnow, 120);
+  // auto remove after animation
+  setTimeout(()=>{ if(el.parentNode) el.remove(); }, 13000);
+}
 
-    /* Hearts */
-    function createHearts() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.innerHTML = '❤';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.bottom = '0';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 4000);
-    }
-    setInterval(createHearts, 800);
+// spawn flakes at interval
+let flakeInterval = setInterval(createFlake, 140);
 
-    /* Toggle Day/Night */
-    const toggle = document.getElementById('toggle');
-    toggle.onclick = () => {
-      document.body.classList.toggle('night');
-      if (document.body.classList.contains('night')) {
-        document.body.style.background = 'linear-gradient(#000014, #001133)';
-      } else {
-        document.body.style.background = 'linear-gradient(#88d3ff, #c0eaff)';
-      }
-    };
+// double-tap/double-click handling
+let lastTap = 0;
+window.addEventListener('touchend', function(e){
+  const now = Date.now();
+  if(now - lastTap < 300){
+    toggleHearts();
+  }
+  lastTap = now;
+});
 
-    /* Music */
-    document.getElementById('musicBtn').onclick = () => {
-      const music = document.getElementById('bgMusic');
-      if (music.paused) music.play(); else music.pause();
-    };
-  </script>
+window.addEventListener('dblclick', function(){ toggleHearts(); });
+
+// button fallback
+document.getElementById('toggleBtn').addEventListener('click', toggleHearts);
+
+function toggleHearts(){
+  heartsMode = !heartsMode;
+  // brief feedback in greeting subtitle
+  const sub = document.getElementById('greetSub');
+  sub.textContent = heartsMode ? 'Hearts are falling now — spread the love! ❤️' : 'Snowflakes are falling again ❄️';
+  // clear old flakes quickly
+  document.querySelectorAll('.flake').forEach(n => n.remove());
+}
+
+// small entrance animation for greeting
+window.addEventListener('load', ()=>{
+  const g = document.getElementById('greeting');
+  g.style.transform = 'translateX(-50%) translateY(-10px)';
+  g.style.opacity = '0';
+  setTimeout(()=>{ g.style.transition = 'transform 700ms cubic-bezier(.2,.9,.3,1), opacity 700ms'; g.style.transform = 'translateX(-50%) translateY(0)'; g.style.opacity = '1'; }, 80);
+});
+
+// optional: allow user to set custom greeting by editing URL hash, e.g. #title=Happy&msg=Love
+(function applyHashGreeting(){
+  try{
+    const h = decodeURIComponent(location.hash.slice(1));
+    if(!h) return;
+    const params = Object.fromEntries(h.split('&').map(p=>p.split('=').map(decodeURIComponent)));
+    if(params.title) document.getElementById('greetTitle').textContent = params.title;
+    if(params.msg) document.getElementById('greetSub').textContent = params.msg;
+  }catch(e){/*ignore*/}
+})();
+</script>
+
 </body>
 </html>
