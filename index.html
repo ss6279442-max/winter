@@ -1,285 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Winter Night Aurora ❄️🌌</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Wonderland Enhanced</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(#00111f, #023);
+      height: 100vh;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
 
-  :root{
-    --bg1:#02040a;
-    --bg2:#041022;
-    --bg3:#062b47;
-    --bg4:#0b5e73;
-    --glass: rgba(255,255,255,0.06);
-  }
+    /* Stars */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      opacity: 0.2;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
 
-  html,body{height:100%;}
-  body {
-    margin: 0;
-    overflow: hidden;
-    font-family: "Poppins", sans-serif;
-    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 40%, var(--bg3) 70%, var(--bg4) 100%);
-    color: #eaf6ff;
-  }
+    /* Moon */
+    .moon {
+      position: absolute;
+      top: 40px;
+      right: 80px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #fff 40%, #d4d4ff 60%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      box-shadow: 0 0 40px 20px rgba(255,255,255,0.7);
+      cursor: pointer;
+    }
 
-  /* Aurora Glow */
-  .aurora {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 120%;
-    height: 120%;
-    pointer-events: none;
-    background: radial-gradient(circle at 15% 25%, rgba(120,255,200,0.18), transparent 40%),
-                radial-gradient(circle at 80% 10%, rgba(80,160,255,0.14), transparent 45%),
-                radial-gradient(circle at 50% 80%, rgba(255,120,200,0.12), transparent 50%);
-    animation: auroraGlow 10s infinite alternate ease-in-out;
-    filter: blur(60px);
-    transform-origin: center;
-    z-index: 2;
-  }
+    /* Clouds */
+    .cloud {
+      position: absolute;
+      top: 80px;
+      width: 200px;
+      height: 60px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 50px;
+      filter: blur(2px);
+      animation: float 40s linear infinite;
+    }
+    @keyframes float {
+      from { transform: translateX(-300px); }
+      to { transform: translateX(2000px); }
+    }
 
-  @keyframes auroraGlow {
-    0% { transform: translateY(0px) rotate(0deg); }
-    100% { transform: translateY(-80px) rotate(2deg); }
-  }
+    /* Snow hills */
+    .ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 180px;
+      background: white;
+      border-radius: 200px 200px 0 0;
+      filter: blur(1px);
+    }
 
-  /* Greeting panel */
-  .greeting {
-    position: fixed;
-    top: 8vh;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    text-align: center;
-    backdrop-filter: blur(6px) saturate(120%);
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    padding: 18px 28px;
-    border-radius: 14px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    border: 1px solid rgba(255,255,255,0.04);
-  }
+    /* Snowman */
+    .snowman {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      animation: parallax 10s infinite alternate;
+    }
+    @keyframes parallax {
+      from { transform: translateX(-45%); }
+      to { transform: translateX(-55%); }
+    }
+    .snowman .body {
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 50%;
+      margin: 0 auto;
+      box-shadow: 0 0 10px rgba(255,255,255,0.7);
+    }
+    .snowman .head {
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 50%;
+      margin: -20px auto 0;
+      box-shadow: 0 0 10px rgba(255,255,255,0.7);
+      position: relative;
+      cursor: pointer;
+    }
+    .snowman .eye {
+      width: 10px;
+      height: 10px;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+      top: 25px;
+    }
+    .eye.left { left: 20px; }
+    .eye.right { right: 20px; }
 
-  .greeting h1{
-    margin: 0 0 6px 0;
-    font-size: 28px;
-    letter-spacing: 0.6px;
-    font-weight: 600;
-  }
-  .greeting p{
-    margin:0;
-    opacity: 0.9;
-    font-size: 14px;
-  }
+    /* Scarf */
+    .scarf {
+      width: 90px;
+      height: 20px;
+      background: red;
+      position: absolute;
+      top: 55px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 4px;
+      animation: wave 2.5s infinite ease-in-out;
+    }
+    @keyframes wave {
+      0% { transform: translateX(-50%) rotate(0deg); }
+      50% { transform: translateX(-50%) rotate(8deg); }
+      100% { transform: translateX(-50%) rotate(0deg); }
+    }
 
-  /* Snowman */
-  .snowman {
-    position: fixed;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-    text-align: center;
-  }
-
-  .snowman .ball1, .snowman .ball2, .snowman .ball3 {
-    background: linear-gradient(180deg,#ffffff,#f0f6ff);
-    border-radius: 50%;
-    margin: 0 auto;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.45), inset 0 -6px 12px rgba(0,0,0,0.06);
-    border: 1px solid rgba(0,0,0,0.06);
-  }
-  .ball1 { width: 160px; height: 160px; }
-  .ball2 { width: 110px; height: 110px; margin-top:-20px; }
-  .ball3 { width: 70px; height: 70px; margin-top:-18px; position: relative; }
-
-  /* Snowman face */
-  .eye {
-    width: 10px;
-    height: 10px;
-    background: black;
-    border-radius: 50%;
-    position: absolute;
-    top: 18px;
-  }
-  .eye.left { left: 16px; }
-  .eye.right { right: 16px; }
-
-  .nose {
-    width: 0;
-    height: 0;
-    border-left: 12px solid orange;
-    border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent;
-    position: absolute;
-    top: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  /* Snowflake / Heart */
-  .flake {
-    position: fixed;
-    top: -10px;
-    color: white;
-    font-size: 18px;
-    user-select: none;
-    pointer-events: none;
-    animation: fall linear infinite;
-    z-index: 15;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
-  }
-
-  @keyframes fall {
-    0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0.35; }
-  }
-
-  /* small helper button */
-  .controls{
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 30;
-  }
-  .btn{
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.06);
-    color: #eaf6ff;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-  }
-  .btn:active{ transform: translateY(1px); }
-
-  @media (max-width:520px){
-    .greeting h1{ font-size:22px }
-    .greeting p{ font-size:13px }
-  }
-</style>
+    /* Canvas */
+    #snowCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
 
-<div class="aurora"></div>
+  <div class="moon" id="moon"></div>
 
-<div class="greeting" id="greeting">
-  <h1 id="greetTitle">A Cozy Winter Night</h1>
-  <p id="greetSub">Wishing you warmth, wonder, and snowflake kisses. Double-tap (or double-click) to turn flakes into hearts ❤️</p>
-</div>
+  <!-- Clouds -->
+  <div class="cloud" style="left:-200px; animation-duration:35s;"></div>
+  <div class="cloud" style="top:150px; left:-300px; animation-duration:50s;"></div>
 
-<div class="snowman" aria-hidden="true">
-  <div class="ball1"></div>
-  <div class="ball2"></div>
-  <div class="ball3">
-    <div class="eye left"></div>
-    <div class="eye right"></div>
-    <div class="nose"></div>
+  <canvas id="snowCanvas"></canvas>
+
+  <div class="ground"></div>
+
+  <!-- Snowman -->
+  <div class="snowman" id="snowman">
+    <div class="head">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="scarf"></div>
+    </div>
+    <div class="body"></div>
   </div>
-</div>
 
-<div class="controls">
-  <button class="btn" id="toggleBtn">Toggle Hearts</button>
-</div>
+  <script>
+    const canvas = document.getElementById("snowCanvas");
+    const ctx = canvas.getContext("2d");
+    let heartsMode = false;
 
-<script>
-// heartsMode toggles between snowflakes and hearts
-let heartsMode = false;
-
-// create a flake or heart element
-function createFlake(){
-  const el = document.createElement('div');
-  el.className = 'flake';
-  // choose symbol
-  const symbol = heartsMode ? '❤' : '❄';
-  // small chance of a sparkling snowflake
-  el.textContent = symbol;
-
-  // random starting position and size
-  const size = 10 + Math.random() * 22;
-  el.style.fontSize = size + 'px';
-  el.style.left = Math.random() * (window.innerWidth - 30) + 'px';
-  el.style.animationDuration = 6 + Math.random() * 6 + 's';
-
-  // slight horizontal oscillation via CSS variable
-  const sway = (Math.random() * 120) - 60; // px
-  el.style.setProperty('--sway', sway + 'px');
-
-  // random horizontal movement using transform on animation via JS
-  el.style.transform = `translateX(0)`;
-
-  document.body.appendChild(el);
-
-  // gentle horizontal sway using requestAnimationFrame
-  let start = null;
-  const amplitude = 20 + Math.random() * 40;
-  const freq = 0.002 + Math.random() * 0.004;
-  function swayFrame(ts){
-    if(!start) start = ts;
-    const t = ts - start;
-    el.style.left = (parseFloat(el.style.left) + Math.sin(t*freq) * 0.3) + 'px';
-    // stop when element is off bottom
-    if(el.getBoundingClientRect().top > window.innerHeight + 50){
-      el.remove();
-      return;
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
-    requestAnimationFrame(swayFrame);
-  }
-  requestAnimationFrame(swayFrame);
+    resize();
+    window.addEventListener("resize", resize);
 
-  // auto remove after animation
-  setTimeout(()=>{ if(el.parentNode) el.remove(); }, 13000);
-}
+    const snowflakes = [];
+    const flakeCount = 160;
 
-// spawn flakes at interval
-let flakeInterval = setInterval(createFlake, 140);
+    function createFlakes() {
+      for (let i = 0; i < flakeCount; i++) {
+        snowflakes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 4 + 2,
+          speed: Math.random() * 1 + 0.5,
+          drift: Math.random() * 2 - 1
+        });
+      }
+    }
+    createFlakes();
 
-// double-tap/double-click handling
-let lastTap = 0;
-window.addEventListener('touchend', function(e){
-  const now = Date.now();
-  if(now - lastTap < 300){
-    toggleHearts();
-  }
-  lastTap = now;
-});
+    /* Stars */
+    for (let i = 0; i < 120; i++) {
+      const star = document.createElement("div");
+      star.classList.add("star");
+      star.style.left = Math.random() * window.innerWidth + "px";
+      star.style.top = Math.random() * 300 + "px";
+      star.style.animationDuration = 2 + Math.random() * 3 + "s";
+      document.body.appendChild(star);
+    }
 
-window.addEventListener('dblclick', function(){ toggleHearts(); });
+    /* Moon phases */
+    const moon = document.getElementById("moon");
+    let moonPhase = 0;
+    moon.addEventListener("click", () => {
+      moonPhase = (moonPhase + 1) % 4;
+      const phases = ["radial-gradient(circle, #fff 40%, #d4d4ff 60%, transparent 70%)", "radial-gradient(circle, #fff 40%, #ccc 60%, transparent 70%)", "radial-gradient(circle, #888 40%, #444 60%, transparent 70%)", "radial-gradient(circle, #000 40%, #111 60%, transparent 70%)"];
+      moon.style.background = phases[moonPhase];
+    });
 
-// button fallback
-document.getElementById('toggleBtn').addEventListener('click', toggleHearts);
+    /* Snowman tap */
+    const snowman = document.getElementById("snowman");
+    snowman.addEventListener("click", () => {
+      alert("❄️ Stay Cozy & Happy Winter! ⛄❤️");
+    });
 
-function toggleHearts(){
-  heartsMode = !heartsMode;
-  // brief feedback in greeting subtitle
-  const sub = document.getElementById('greetSub');
-  sub.textContent = heartsMode ? 'Hearts are falling now — spread the love! ❤️' : 'Snowflakes are falling again ❄️';
-  // clear old flakes quickly
-  document.querySelectorAll('.flake').forEach(n => n.remove());
-}
+    function drawFlakes() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// small entrance animation for greeting
-window.addEventListener('load', ()=>{
-  const g = document.getElementById('greeting');
-  g.style.transform = 'translateX(-50%) translateY(-10px)';
-  g.style.opacity = '0';
-  setTimeout(()=>{ g.style.transition = 'transform 700ms cubic-bezier(.2,.9,.3,1), opacity 700ms'; g.style.transform = 'translateX(-50%) translateY(0)'; g.style.opacity = '1'; }, 80);
-});
+      snowflakes.forEach(flake => {
+        ctx.beginPath();
+        ctx.fillStyle = heartsMode ? "pink" : "white";
 
-// optional: allow user to set custom greeting by editing URL hash, e.g. #title=Happy&msg=Love
-(function applyHashGreeting(){
-  try{
-    const h = decodeURIComponent(location.hash.slice(1));
-    if(!h) return;
-    const params = Object.fromEntries(h.split('&').map(p=>p.split('=').map(decodeURIComponent)));
-    if(params.title) document.getElementById('greetTitle').textContent = params.title;
-    if(params.msg) document.getElementById('greetSub').textContent = params.msg;
-  }catch(e){/*ignore*/}
-})();
-</script>
+        if (heartsMode) {
+          ctx.save();
+          ctx.translate(flake.x, flake.y);
+          ctx.scale(flake.size / 5, flake.size / 5);
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(-5, -5, -10, 5, 0, 10);
+          ctx.bezierCurveTo(10, 5, 5, -5, 0, 0);
+          ctx.fill();
+          ctx.restore();
+        } else {
+          const shapes = ["circle", "star", "snow"];
+          const type = shapes[Math.floor(Math.random() * shapes.length)];
 
+          if (type === "circle") {
+            ctx.arc(flake.x, flake.y, flake.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        flake.y += flake.speed;
+        flake.x += flake.drift * 0.3;
+
+        if (flake.y > canvas.height) flake.y = -5;
+        if (flake.x > canvas.width) flake.x = 0;
+        if (flake.x < 0) flake.x = canvas.width;
+      });
+
+      requestAnimationFrame(drawFlakes);
+    }
+    drawFlakes();
+
+    let lastTap = 0;
+    window.addEventListener("touchend", () => {
+      const now = Date.now();
+      if (now - lastTap < 300) heartsMode = !heartsMode;
+      lastTap = now;
+    });
+
+    window.addEventListener("dblclick", () => heartsMode = !heartsMode);
+  </script>
 </body>
 </html>
